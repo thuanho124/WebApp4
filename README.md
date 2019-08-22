@@ -21,7 +21,7 @@ Home Page Without Active Search:
 ![HomePageNoSearch](https://user-images.githubusercontent.com/28665643/63549338-10cdfa00-c4e5-11e9-8b1a-f5dab73809a5.PNG)
 
 
-Home Page Without Active Search:
+Home Page With Active Search:
 
 ![HomePageWithSearchString](https://user-images.githubusercontent.com/28665643/63549341-1297bd80-c4e5-11e9-95ce-215d6c097095.PNG)
 
