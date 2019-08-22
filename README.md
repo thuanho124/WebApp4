@@ -1,22 +1,13 @@
-# WebAppProject3 - Online Library Management System
+# Final Web App Project - Online Library Management System
 
 #### To login, please register as a new user first and then you need to use a new account to login (or it just redirects you to home page after you have signed up).
 
-#### There is no database initializer so you dont need to update database
+#### There is database initializer class, please do update command or change database's name
 
 #### As a librarian:
 * Be able to do basic CRUD for students, and books
-* Be able to issue a book and see a list of rented books
- 
-#### Other features (may add them later):
-* Check for overdue books and send an email to remind to student
-* Search the book by name, ISBN, or Author.
-
-#### If the database is not working or lost:
-* Go to appsettings.json and change the database's name to thuanLibDatabase5 (the cuurrent one is LibDatabase5).
-* Or change the name of database file to LibDatabase5.
-* The worst way: Please add some data through student, book, and rented books page.
-
+* Be able to issue a book and see a list of rented books, and list of overdue book.
+* Be able to access to dashboard.
 
 #### Some screenshots:
 Student page:
