@@ -1,0 +1,133 @@
+﻿@model PaginatedList<LibraryManagementWithAuthen.Models.Book>
+
+@{
+    ViewData["Title"] = "Library Database";
+}
+
+<h1>Library Database</h1>
+<p> The librarian will be able to see the list of rented books and add a new book to database </p>
+<p>
+    <button type="button" class="btn-primary" onclick="location.href='@Url.Action("Create", "ForLibrarians")'">
+        Add a new textbook
+    </button>
+
+    <button type="button" class="btn-primary" onclick="location.href='@Url.Action("Index", "RentedBooks")'">
+        List of Rented TextBooks
+    </button>
+
+    <button type="button" class="btn-primary" onclick="location.href='@Url.Action("Create", "RentedBooks")'">
+        Issue a book
+    </button>
+</p>
+<hr>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        Please enter name, ISBN, author, or subject to find.
+        <p></p>
+        <p>
+            Find: <input type="text" name="search" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+        <p><span class="badge badge-danger">Red</span> = unavailable book (quantity = 0)<p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["BookNameSort"]">Book Name</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AuthorSort"]">Author</a>
+            </th>
+            <th>
+                Edition
+            </th>
+            <th>
+                ISBN
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SubjectSort"]">Subject</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PublicDateSort"]">Public Date</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["FormatSort"]">Format</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NumofPagesSort"]">Number of Pages</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["QuantitySort"]">Available Quantity</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string selectedRow = "";
+            if (item.AvailableQuantity == 0)
+            {
+                selectedRow = "table-danger";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookName)
+                </td>
+                <td width="10%">
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Edition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublicDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Format)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumofPages)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AvailableQuantity)
+                </td>
+                <td width="25%">
+                    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Edit", "ForLibrarians", new { id = @item.BookID })'">Edit</button> |
+                    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Details", "ForLibrarians", new { id = @item.BookID })'">Details</button> |
+                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "ForLibrarians", new { id = @item.BookID })'">Delete</button>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

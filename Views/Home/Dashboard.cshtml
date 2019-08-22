@@ -1,0 +1,70 @@
+﻿@model IEnumerable<LibraryManagementWithAuthen.Models.LibraryViewModel.RentBookCount>
+
+@{
+    ViewData["Title"] = "Library Dashboard";
+}
+
+<!-- dykstra3
+create a view for the about page
+-->
+<h2>Library Management Dashboard</h2>
+<br>
+
+<div class="row">
+
+    <div class="col-4">
+
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header"><h4>Rented Book Count:</h4></div>
+            <div class="card-body">
+                @foreach (var item in Model)
+                {
+                    if (item.RentedBookCount > 0)
+                    {
+                        <p class="card-text">There are @Html.DisplayFor(modelItem => item.RentedBookCount) books currently being rented.</p>
+                    }
+                }
+                <button type="button" class="btn-primary" onclick="location.href='@Url.Action("Index", "RentedBooks")'">
+                    See details >>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header"><h4>Total available book:</h4></div>
+            <div class="card-body">
+                @foreach (var item in Model)
+                {
+                    @if (item.BookTotal > 0)
+                    {
+                        <p class="card-text">There are @Html.DisplayFor(modelItem => item.BookTotal) available books in total.</p>
+                    }
+                }
+                <button type="button" class="btn-primary" onclick="location.href='@Url.Action("Index", "ForLibrarians")'">
+                    See details >>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header"><h4>Overdue Book Count:</h4></div>
+            <div class="card-body">
+                @foreach (var item in Model)
+                {
+                    @if (item.OverdueBook > 0)
+                    {
+                        <p class="card-text">There are currently @Html.DisplayFor(modelItem => item.OverdueBook) overdue books.</p>
+                    }
+                }
+                <button type="button" class="btn-primary" onclick="location.href='@Url.Action("ListOfOverdue", "RentedBooks")'">
+                    See details >>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>

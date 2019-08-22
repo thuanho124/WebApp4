@@ -1,0 +1,66 @@
+﻿@model IEnumerable<LibraryManagementWithAuthen.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Student Database</h1>
+<p>The librarian can add a student to database and assign a book to student here</p>
+<button type="button" class="btn-primary" onclick="location.href='@Url.Action("Create", "Students")'">
+    Add a student
+</button>
+<button type="button" class="btn-primary" onclick="location.href='@Url.Action("Create", "RentedBooks")'">
+    Issue a book
+</button>
+<hr>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find: <input type="text" name="studentSearch" value="@ViewData["currentSearch"]" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Email Address
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentPhoneNumber)
+            </td>
+            <td width="25%">
+                <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Edit", "Students", new { id = @item.StudentID })'">Edit</button> |
+                <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Details", "Students", new { id = @item.StudentID })'">Details</button> |
+                <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Students", new { id = @item.StudentID })'">Delete</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

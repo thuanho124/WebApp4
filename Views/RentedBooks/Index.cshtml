@@ -1,0 +1,61 @@
+﻿@model IEnumerable<LibraryManagementWithAuthen.Models.RentedBook>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of rented books</h1>
+<button type="button" class="btn-primary" onclick="location.href='@Url.Action("Create", "RentedBooks")'">
+    Issue a book
+</button>
+<br>
+<p></p>
+<p><span class="badge badge-danger">Red</span> = overdue book<p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string selectedRow = "";
+            if (item.ReturnDate < @DateTime.Now)
+            {
+                selectedRow = "table-danger";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.StudentEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.BookName)
+                </td>
+                <td width="25%">
+                    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Edit", "RentedBooks", new { id = @item.RentedBookID })'">Edit</button> |
+                    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Details", "RentedBooks", new { id = @item.RentedBookID })'">Details</button> |
+                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "RentedBooks", new { id = @item.RentedBookID })'">Return</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LibraryManagementWithAuthen.Models.RentedBook>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of overdue books</h1>
+<p class="text-success" style="font-size:150%;">Today is @DateTime.Now.ToString("yyyy-MM-dd") </p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @if (item.ReturnDate < @DateTime.Now) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.StudentEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.BookName)
+                </td>
+            </tr>
+                }
+            }
+    </tbody>
+</table>

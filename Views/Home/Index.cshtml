@@ -1,0 +1,75 @@
+﻿@model IEnumerable<LibraryManagementWithAuthen.Models.Book>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="jumbotron">
+        <h1>Welcome to UWT Library !</h1>
+        <p>Please use the search bar below to find a book.</p>
+        <p>Enter a book name, author, ISBN, or Subject:</p>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search a book" name="search" value="@ViewData["CurrentSearch"]">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <br>
+        <p>If you can't find a book or you want to rent one. Please come to library and ask librarians.</p>
+    </div>
+@if(ViewData["CurrentSearch"] != null){
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Book Name
+                </th>
+                <th>
+                    Author
+                </th>
+                <th>
+                    Edition
+                </th>
+                <th>
+                    ISBN
+                </th>
+                <th>
+                    Subject
+                </th>
+                <th>
+                    Public Date
+                </th>
+                <th>
+                    Format
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Edition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublicDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Format)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
